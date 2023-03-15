@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import react from '@vitejs/plugin-react';
+import pkg from './package.json';
 
 export default defineConfig({
   build: {
-    ssr: true,
     lib: {
       entry: './src/index.ts',
       name: 'index',
@@ -12,7 +12,8 @@ export default defineConfig({
     },
     rollupOptions: {
       input: './src/index.ts',
-    }
+      external: Object.keys(pkg.peerDependencies)
+    },
   },
   plugins: [react({
     jsxImportSource: '@emotion/react',
