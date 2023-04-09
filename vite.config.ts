@@ -12,7 +12,10 @@ export default defineConfig({
     },
     rollupOptions: {
       input: './src/index.ts',
-      external: Object.keys(pkg.peerDependencies)
+      external: [...Object.keys(pkg.peerDependencies), /@emotion/g],
+      output: {
+        interop: 'auto'
+      }
     },
   },
   plugins: [react({
@@ -20,5 +23,8 @@ export default defineConfig({
     babel: {
       plugins: ['@emotion/babel-plugin'],
     },
-  }),dts()]
+  }),dts()],
+  define: {
+    'process.env.NODE_ENV': '"production"'
+  }
 })
